@@ -16,6 +16,8 @@
 #define KEY_MOVE_RIGHT SDLK_s
 #define KEY_ZOOM_IN SDLK_p
 #define KEY_ZOOM_OUT SDLK_t
+#define KEY_INCREASE_DEPTH SDLK_g
+#define KEY_DECREASE_DEPTH SDLK_d
 
 static SDL_Keycode remap_keycode(SDL_Keycode kc);
 static void update_key_states(SDL_Event const *e);
@@ -74,6 +76,12 @@ int main(void)
             size_x *= zoom_speed;
             size_y *= zoom_speed;
         }
+
+        if (key_pressed(KEY_INCREASE_DEPTH))
+            ++depth;
+
+        if (key_pressed(KEY_DECREASE_DEPTH))
+            depth -= depth <= 1 ? 0 : 1;
         
         for (i = 0; i < WIDTH; ++i) {
             for (j = 0; j < HEIGHT; ++j) {
